@@ -1,0 +1,14 @@
+set number
+colorscheme blue
+
+".......................................
+" USE THESE IF YOU WANT TO USE vim's vimrc file,
+" SEE NVIM DOCS FOR HELP ABOUT GAURDING INCOMPATIBLE VIM FEATURES FOR NVIM
+
+"set runtimepath^=~/.vim runtimepath+=~/.vim/after
+"let &packpath = &runtimepath
+"source ~/.vimrc
+
+".......................................
+
+
