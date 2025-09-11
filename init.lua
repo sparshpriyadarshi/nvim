@@ -39,6 +39,8 @@ vim.g.netrw_liststyle = 3
 
 vim.opt.completeopt = "menu,noselect" -- should have been default, shame
 
+vim.opt.termguicolors = true -- fixed colors in tmux along with tmux conf
+
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
 --  See `:help vim.highlight.on_yank()`
@@ -80,7 +82,7 @@ function MyLspConfig()
 
 	vim.lsp.config["gopls"] = {
 		-- Command and arguments to start the server.
-		cmd = { "gopls" },
+		cmd = { "gopls" }, -- gopls should be on path
 
 		-- Filetypes to automatically attach to.
 		filetypes = { "go", "gomod", "gowork", "gotmpl" },
@@ -98,6 +100,19 @@ function MyLspConfig()
 		}
 	}
 	vim.lsp.enable("gopls")
+	
+	vim.lsp.config("jdtls", {
+
+		cmd = { "jdtls" }, -- install this on your system first...
+		root_markers = {"pom.xml", "build.gradle", "build.xml", ".git"}, --order matters
+		settings = {
+			java = {
+				-- Custom eclipse.jdt.ls options go here
+			},
+		},
+	})
+	vim.lsp.enable("jdtls")
+
 
 	vim.api.nvim_create_autocmd("LspAttach", {
 		group = vim.api.nvim_create_augroup("my.lsp", {}),
@@ -139,7 +154,7 @@ function MyLspConfig()
 			})
 		end
 		--]]
-			vim.diagnostic.config({ virtual_text = true})
+			vim.diagnostic.config({ virtual_text = true, virtual_lines = false, float = true })
 		end,
 	})
 end
@@ -192,7 +207,15 @@ require("lazy").setup({
 				local statusline = require "mini.statusline"
 				statusline.setup { use_icons = true }
 			end
-		}
+		},
+
+		{
+    "iamcco/markdown-preview.nvim",
+	enabled = false,
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function() vim.fn["mkdp#util#install"]() end,
+}
 
 	}, -- end spec
 
@@ -210,4 +233,4 @@ require("lazy").setup({
 
 vim.cmd.colorscheme "moonfly"
 
-print("init.lua is aware")
+print("meow meow init.lua")
