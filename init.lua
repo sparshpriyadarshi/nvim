@@ -38,7 +38,6 @@ vim.opt.scrolloff = 0
 vim.g.netrw_liststyle = 3
 
 vim.opt.completeopt = "menu,popup,noselect" -- should have been default, shame
-
 vim.opt.termguicolors = true -- fixed colors in tmux along with tmux conf
 
 -- Highlight when yanking (copying) text
